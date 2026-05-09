@@ -12,7 +12,7 @@ urlpatterns = [
     path("api/inventory/", include("inventory.urls")),
     path("api/borrowing/", include("borrowing.urls")),
 
-    path("swagger/", include("drf_yasg.urls")),
+
 ]
 
 if settings.DEBUG:
