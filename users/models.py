@@ -26,6 +26,7 @@ class User(AbstractUser):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
