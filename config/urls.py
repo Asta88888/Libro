@@ -27,6 +27,7 @@ urlpatterns = [
     path("api/inventory/", include(("inventory.urls", "inventory"), namespace="inventory")),
     path("api/borrowing/", include(("borrowing.urls", "borrowing"), namespace="borrowing")),
     path("api/delivery/", include(("delivery.urls", "delivery"), namespace="delivery")),
+    path("api/reviews/", include(("reviews.urls", "reviews"), namespace="reviews")),
 
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="swagger"),
 ]
