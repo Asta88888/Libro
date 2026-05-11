@@ -29,6 +29,8 @@ class BorrowingViewSet(ModelViewSet):
         Пользователь — только свои.
         """
         user = self.request.user
+        if getattr(self, "swagger_fake_view", False):
+            return Borrowing.objects.none()
         if user.is_staff:
             return Borrowing.objects.all()
         return Borrowing.objects.filter(user=user)
