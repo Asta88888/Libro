@@ -31,6 +31,8 @@ class DeliveryViewSet(ModelViewSet):
         queryset = Delivery.objects.select_related("user", "borrowing", "borrowing__book_copy",)
         if user.is_staff:
             return queryset
+        if not user.is_authenticated:
+            return queryset.none()
         return queryset.filter(user=user)
 
     @action(detail=False, methods=["post"])

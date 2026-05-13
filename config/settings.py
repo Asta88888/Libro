@@ -143,11 +143,12 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+    "http://localhost:5173",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False

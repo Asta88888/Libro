@@ -22,6 +22,8 @@ class ReviewViewSet(ModelViewSet):
         qs = Review.objects.select_related("book", "user")
         if user.is_staff:
             return qs
+        if not user.is_authenticated:
+            return qs.none()
         return qs.filter(user=user)
     def perform_create(self, serializer):
         review = create_or_update_review(user=self.request.user,
