@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 import "./profile.css";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.get("users/me/")
@@ -65,7 +67,7 @@ export default function Profile() {
                     </div>
                 </div>
 
-                {/* BIO (ОТДЕЛЬНО!) */}
+                {/* BIO */}
                 <div className="bio-card">
 
                     <span>О себе</span>
@@ -124,7 +126,10 @@ export default function Profile() {
                 {/* ACTIONS */}
                 <div className="profile-actions">
 
-                    <button className="primary-btn">
+                    <button
+                        className="primary-btn"
+                        onClick={() => navigate("/profile/edit")}
+                    >
                         Редактировать профиль
                     </button>
 

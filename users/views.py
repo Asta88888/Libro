@@ -28,3 +28,13 @@ class UserViewSet(ModelViewSet):
     def me(self, request):
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
+
+    @action(detail=False, methods=["patch"], permission_classes=[IsAuthenticated])
+    def me_update(self, request):
+        user = request.user
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)

@@ -303,3 +303,43 @@
         flex-direction: column;
     }
 }
+
+
+/* EDIT */
+.edit-title {
+    font-size: 42px;
+    margin-bottom: 30px;
+    font-family: "Playfair Display", serif;
+    color: white;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.edit-form input,
+.edit-form textarea {
+    padding: 14px 16px;
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.25);
+
+    color: white;
+    font-size: 15px;
+
+    outline: none;
+}
+
+.edit-form input::placeholder,
+.edit-form textarea::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+}
