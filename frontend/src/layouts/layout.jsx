@@ -1,48 +1,57 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import "./layout.css";
 
 export default function Layout() {
     const navigate = useNavigate();
 
-    const logout = () => {
+    function logout() {
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
         navigate("/login");
-    };
+    }
 
     return (
-        <div className="container-fluid">
-            <div className="row">
+        <div className="app-layout">
 
-                {/* SIDEBAR */}
-                <div className="col-2 bg-dark text-white min-vh-100 p-3">
-                    <h5>Меню</h5>
-                    <hr />
+            {/* NAVBAR */}
+            <nav className="navbar">
+                <div className="navbar-inner">
 
-                    <Link className="text-white d-block mb-2" to="/">
-                        Главная
+                    <Link className="logo" to="/">
+                        <img src="/logo.svg" alt="Libro" className="logo-icon" />
+                            Libro
                     </Link>
 
-                    <Link className="text-white d-block mb-2" to="/books">
-                        Книги
-                    </Link>
+                    <div className="nav-links">
 
-                    <Link className="text-white d-block mb-2" to="/profile">
-                        Профиль
-                    </Link>
+                        <Link className="nav-btn" to="/">
+                            Главная
+                        </Link>
 
-                    <hr />
+                        <Link className="nav-btn" to="/books">
+                            Книги
+                        </Link>
 
-                    <button className="btn btn-outline-light w-100" onClick={logout}>
-                        Выйти
-                    </button>
+                        <Link className="nav-btn" to="/profile">
+                            Профиль
+                        </Link>
+
+                        <button onClick={logout} className="logout-btn">
+                            Выйти
+                        </button>
+
+                    </div>
+
                 </div>
+            </nav>
 
-                {/* CONTENT */}
-                <div className="col-10 p-4">
+            {/* CONTENT */}
+            <div className="page-content">
+                <div className="container">
                     <Outlet />
                 </div>
-
             </div>
+
         </div>
     );
 }

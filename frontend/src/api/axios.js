@@ -4,9 +4,11 @@ const api = axios.create({
     baseURL: "http://127.0.0.1:8000/api/",
 });
 
-// автоматически добавляем токен ко всем запросам
 api.interceptors.request.use((config) => {
+
     const token = localStorage.getItem("access");
+
+    console.log("TOKEN FROM STORAGE:", token);
 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;

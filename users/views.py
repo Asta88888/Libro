@@ -3,6 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import User
 from .serializers import UserSerializer
 from .permissions import IsAdmin, IsSelfOrAdmin
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
@@ -21,3 +23,8 @@ class UserViewSet(ModelViewSet):
             return User.objects.all()
 
         return User.objects.filter(id=user.id)
+
+    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)

@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./layouts/Layout";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile"; // 👈 ВАЖНО ДОБАВИТЬ
 
 function Home() {
     return <h1>Главная</h1>;
@@ -9,10 +10,6 @@ function Home() {
 
 function Books() {
     return <h1>Книги</h1>;
-}
-
-function Profile() {
-    return <h1>Профиль</h1>;
 }
 
 // защита маршрутов
@@ -38,7 +35,10 @@ export default function App() {
             >
                 <Route index element={<Home />} />
                 <Route path="books" element={<Books />} />
+
+                {/* 👇 ВОТ ТУТ теперь настоящий профиль */}
                 <Route path="profile" element={<Profile />} />
+
             </Route>
 
         </Routes>
