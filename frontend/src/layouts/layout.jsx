@@ -28,6 +28,10 @@ export default function Layout() {
                             Главная
                         </Link>
 
+                        <Link className="nav-btn" to="/libraries">
+                            Библиотеки
+                        </Link>
+
                         <Link className="nav-btn" to="/books">
                             Книги
                         </Link>

@@ -4,6 +4,9 @@ from books.permissions import IsAdminOrAuthenticatedReadOnly
 from .models import Library
 from .serializers import LibrarySerializer
 from .services import get_coordinates
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from inventory.models import BookCopy
 
 
 class LibraryViewSet(ModelViewSet):
@@ -34,3 +37,22 @@ class LibraryViewSet(ModelViewSet):
         latitude, longitude = get_coordinates(address)
         serializer.save(latitude=latitude, longitude=longitude)
 
+    @action(detail=True, methods=["get"])
+    def books(self, request, pk=None):
+        library = self.get_object()
+
+        copies = BookCopy.objects.filter(library=library).select_related("book")
+
+        books_data = [
+            {
+                "id": copy.id,
+                "title": copy.book.title,
+                "author": str(copy.book.author),
+                "cover": copy.book.cover.url if copy.book.cover else None,
+                "status": copy.status,
+                "inventory_number": copy.inventory_number,
+            }
+            for copy in copies
+        ]
+
+        return Response(books_data)

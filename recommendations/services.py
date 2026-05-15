@@ -1,5 +1,4 @@
 from django.db.models import Avg, Count
-
 from books.models import Book
 from reviews.models import Review
 
@@ -15,15 +14,16 @@ def get_recommendations_for_user(user, limit=10):
 
     user_genres = Review.objects.filter(
         user=user
-    ).values_list("book__genre_id", flat=True)
+    ).values_list("book__genres__id", flat=True)
 
     books = (
         Book.objects
         .exclude(id__in=user_book_ids)
+        .prefetch_related("genres")
         .annotate(
             avg_rating=Avg("reviews__rating"),
-            reviews_count=Count("reviews"),
-            borrow_count=Count("copies__borrowings"),
+            reviews_count=Count("reviews", distinct=True),
+            borrow_count=Count("copies__borrowings", distinct=True),
         )
     )
 
@@ -36,10 +36,13 @@ def get_recommendations_for_user(user, limit=10):
             score += float(book.avg_rating) * 2
 
         score += min(book.reviews_count * 0.3, 3)
-
         score += min(book.borrow_count * 0.2, 3)
 
-        if book.genre_id in user_genres:
+        book_genre_ids = set(
+            book.genres.values_list("id", flat=True)
+        )
+
+        if book_genre_ids.intersection(set(user_genres)):
             score += 3
 
         scored_books.append((score, book))

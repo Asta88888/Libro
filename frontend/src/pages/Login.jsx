@@ -23,13 +23,12 @@ export default function Login() {
 
             console.log("SUCCESS:", response.data);
 
-            localStorage.setItem("access", response.data.access);
-            localStorage.setItem("refresh", response.data.refresh);
+localStorage.setItem("access", response.data.access);
+localStorage.setItem("refresh", response.data.refresh);
 
-            setError(null);
+setError(null);
 
-            alert("Успешный вход!");
-            navigate("/");
+navigate("/");
 
         } catch (error) {
             console.log("LOGIN ERROR:", error.response?.data || error.message);

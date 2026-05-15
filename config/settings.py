@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "users",
     "books",
     "borrowing",
@@ -27,7 +28,8 @@ INSTALLED_APPS = [
     "inventory",
     "libraries",
     "recommendations",
-    "reviews",
+    "reviews.apps.ReviewsConfig",
+
     "drf_yasg",
     "rest_framework",
     "rest_framework_simplejwt",
